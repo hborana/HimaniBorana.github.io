@@ -2875,3 +2875,145 @@ ul.social.compact a:hover { transform:translateY(-2px); filter:brightness(1.05);
 .contact-form .actions .primary {
   background:#111827; color:#fff; border:none;
 }
+body.minimesh{
+  background:
+    radial-gradient(1100px 600px at 15% 8%,  #e6f0ff 0%, transparent 60%),
+    radial-gradient(900px 520px  at 85% 18%, #e8fff7 0%, transparent 58%),
+    radial-gradient(900px 520px  at 30% 88%, #f2f1ff 0%, transparent 60%),
+    linear-gradient(#f9fafb, #f9fafb);
+  background-attachment: fixed;   /* smooth on scroll */
+}
+body.minimesh::after{
+  content:"";
+  position:fixed; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(17,24,39,.04), rgba(0,0,0,0));
+  mix-blend-mode:multiply;        /* tiny depth vignette */
+}
+/* Animated blobs behind hero */
+.wrapper.intro{ position:relative; overflow:hidden; }
+.wrapper.intro::before,
+.wrapper.intro::after{
+  content:""; position:absolute; width:420px; height:420px;
+  border-radius:50%; filter:blur(60px); opacity:.45; z-index:0;
+}
+.wrapper.intro::before{ background:#c7d2fe; top:-120px; left:-120px; animation:blob 16s ease-in-out infinite alternate; }
+.wrapper.intro::after{  background:#a7f3d0; bottom:-120px; right:-80px; animation:blob 18s ease-in-out infinite alternate-reverse; }
+.wrapper.intro > .container{ position:relative; z-index:1; }
+
+@keyframes blob{
+  0%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(40px,-20px) scale(1.1);}
+  100%{transform:translate(-20px,30px) scale(.95);}
+}
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .wrapper.intro::before, .wrapper.intro::after{ animation:none; }
+}
+body.griddots{
+  background:
+    radial-gradient(circle at center, rgba(2,6,23,.03) 0 1.5px, transparent 1.5px) 0 0/24px 24px,
+    linear-gradient(#ffffff,#ffffff);
+}
+.wave{display:block; width:100%; margin-top:-1px;}
+.hello-line{
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 700;
+  color: #e5e7eb;
+  letter-spacing: .4px;
+  margin: 0 0 8px 0;
+}
+.brace{ color:#10b981; margin:0 .35rem; }
+
+/* Show exactly one line, slide the list upward in steps */
+.rotate-wrapper{
+  display:inline-block;
+  height:1em;           /* one line tall */
+  overflow:hidden;
+  vertical-align:-0.05em;
+}
+.rotate-list{
+  display:block;
+  line-height:1;
+  /* 4 real words -> steps(4) and move up by 4 lines (no var() needed) */
+  animation: roll 8s steps(4) infinite;
+}
+.rotate-list > span{
+  display:block;
+  height:1em;
+  line-height:1;
+  padding:0 .15em;
+}
+
+@keyframes roll{
+  to { transform: translateY(calc(-1em * 4)); } /* 4 lines */
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .rotate-list { animation: none; }
+}
+.rotating-word{
+  display:inline-block;
+  min-width: 7ch;           /* prevents layout shift between 'crowd!'/'viewers!' */
+  transition: opacity .45s ease;
+}
+.rotating-word.fadeout{ opacity: 0; }
+.greeting {
+  margin-bottom: clamp(16px, 3vw, 40px);
+}
+.hello-line { margin: 0 0 clamp(20px, 3vw, 48px); }  /* gap grows on larger screens */
+.hero-name  { margin: 0; } 
+/* ---- New ----- */
+
+.hello-line{ line-height:1.2; overflow:visible; }
+
+.brace{
+  color: #10b981;                  /* teal braces */
+  margin: 0 .35rem;
+}
+
+/* “Hello” gets a soft sky code-color */
+.hello-key{
+  color: #93c5fd;                  /* sky-300 */
+  margin-right: .35rem;
+}
+
+/* Rotating word: animated gradient “code-y” highlight */
+.rotating-word{
+  display:inline-block;
+  min-width:7ch;           /* prevents layout shift between words */
+  font-weight:700;
+  color:#60a5fa;           /* fallback solid color */
+  transition:opacity .45s ease;
+}
+@supports (-webkit-background-clip: text) {
+  .rotating-word{
+    background: linear-gradient(90deg,#34d399,#60a5fa,#a78bfa,#f472b6);
+    background-size:200% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;               /* safe now */
+    animation: rotateGradient 6s ease-in-out infinite;
+  }
+}
+
+.rotate-wrapper{ height: auto; overflow: visible; }
+
+/* Subtle animated sweep in the gradient */
+@keyframes rotateGradient{
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Fade class used by the JS rotator */
+.rotating-word.fadeout{ opacity: 0; }
+
+/* Keep the name snug under the greeting */
+.hero-name{ margin: 0; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .rotating-word{ animation: none; }
+}
